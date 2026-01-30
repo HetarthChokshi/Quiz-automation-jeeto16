@@ -391,7 +391,7 @@ def run_for_user(user, qr_url):
         logger.info(f"{'='*60}")
         
         # Setup driver
-        driver = setup_driver(headless=False)  # Set to True for headless mode
+        driver = setup_driver(headless=True)  # Set to True for headless mode
         wait = WebDriverWait(driver, 15)
         
         # Navigate directly to QR URL (it will redirect to auth page with QR params)
