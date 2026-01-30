@@ -1,0 +1,23 @@
+[Unit]
+Description=Quiz Automation FastAPI Server
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/home/ubuntu/quiz-automation
+Environment="PATH=/home/ubuntu/quiz-automation/venv/bin"
+Environment="PYTHONUNBUFFERED=1"
+ExecStart=/home/ubuntu/quiz-automation/venv/bin/python main.py
+Restart=always
+RestartSec=10
+StandardOutput=append:/home/ubuntu/quiz-automation/logs/server.log
+StandardError=append:/home/ubuntu/quiz-automation/logs/error.log
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

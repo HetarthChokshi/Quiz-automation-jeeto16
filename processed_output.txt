@@ -1,0 +1,5 @@
+Question 3
+Andrew, a professional hacker, drafts an email that appears to be legitimate and attaches malicious links to lure victims; he then distributes it through communication channels or mails to obtain private information like account numbers.
+
+Identify the type of attack vector employed by Andrew in the above scenario.    
+
