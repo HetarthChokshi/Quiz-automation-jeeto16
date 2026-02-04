@@ -10,6 +10,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, NoSuchElementException, WebDriverException
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 import time
 import logging
 
@@ -45,8 +46,17 @@ def setup_driver(headless=False):
     chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
     chrome_options.add_experimental_option('useAutomationExtension', False)
     
-    # Initialize driver
-    driver = webdriver.Chrome(options=chrome_options)
+    try:
+        # Try using webdriver-manager to automatically download and setup ChromeDriver
+        service = Service(ChromeDriverManager().install())
+        driver = webdriver.Chrome(service=service, options=chrome_options)
+        logger.info("✓ Chrome driver initialized using webdriver-manager")
+    except Exception as e:
+        logger.warning(f"webdriver-manager failed: {e}")
+        logger.info("Attempting to use system Chrome...")
+        # Fallback to default Chrome installation
+        driver = webdriver.Chrome(options=chrome_options)
+    
     driver.implicitly_wait(10)
     
     return driver
